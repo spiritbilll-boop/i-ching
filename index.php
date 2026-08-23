@@ -68,50 +68,83 @@ if ($hexagram) {
     <title>I Ching Consultation in PHP/MySql</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampleuser/water.css@2/out/water.css">
     <link href="https://fonts.googleapis.com/css?family=Times" rel="stylesheet" />
-    <style type="text/css">
-        body,p,table,h1,h2,h3,h4,h5,h6,p,li,th,td,tr {
-            font-family: "Times New Roman", serif; 
-            line-height: 1.2;
+<style>
+        body { 
+            font-family: Times, serif; 
+            background: #1a1a2e; 
+            color: #fff; 
+            margin: 0 auto; 
+            padding: 20px;  
+            text-align: center;
+            line-height: 1.4;
         }
-        .button {
-            font-size: 48px;
-            cursor: pointer;
+
+        form { 
+            background: #162447; 
+            padding: 20px; 
+            border-radius: 8px; 
+            display: inline-block; 
+            text-align: left; 
+            margin-bottom: 20px; 
+            max-width: 600px;
+            width: 100%;
+            box-sizing: border-box;
         }
-        .button-group {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-            font-size: 48px;
+
+        textarea, input[type="text"], select { 
+            width: 100%; 
+            padding: 10px; 
+            margin: 10px 0; 
+            border-radius: 4px; 
+            border: none; 
+            box-sizing: border-box;
+            font-family: inherit;
         }
-        button, .btn-link {
-            cursor: pointer;
+
+        button { 
+            background: #1a1a2e; 
+            color: teal; 
+            border: none; 
+            padding: 10px 20px; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-size: 24px; 
         }
-        .btn-link {
+
+        button:hover { 
+            background: #ff4a68; 
+            color: #fff;
+        }
+
+        .hexagram-container {
+            background: #4264B9;
+            border: 2px solid #e43f5a;
+            padding: 20px;
+            border-radius: 8px;
             display: inline-block;
-            text-decoration: none;
-            background-color: var(--button-bg);
-            color: var(--button-text);
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            font-size: 48px;
+            margin-top: 20px;
+            max-width: 650px;
         }
-        .btn-link:hover {
-            background-color: var(--button-hover);
-        }
-        /* Custom image style for hexagram rendering */
-        .hexagram-img {
-            max-width: 300px;
-            height: auto;
+
+        .hexagram-img { 
+            width: 300px; 
+            border-radius: 4px; 
             margin: 15px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border: 1px solid #1a1a2e;
+        }
+
+        a, .card-link {
+            color: #ffd966;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        a:hover, .card-link:hover {
+            color: #ffe699;
         }
     </style>
 </head>
 <body>
-<center>
 <?php
   $currentDateTime = new DateTime('now');
   $currentDate = $currentDateTime->format('l, F j, Y H:i:s');
@@ -182,15 +215,7 @@ if ($hexagram) {
 <p>Created with my limited knowledge of <b><i>mysql</i></b> and PHP, with the help of Google Gemini AI</p>
 <p><a href="/tarot-study-guide" target=_blank>Do a Tarot Card Reading</a></p>
 <p><a href="/" target=_blank>Go To the Main Page of this website</a></p>
-</center>
 
-    <p>Additional notes:</p>
-    <ul>
-      <li>The time is shown in the GMT timezone; when converted to your local time, it should be within a few seconds of yours.</li>
-      <li>If it isn't, then your browser is displaying your last visit to this page.</li>
-      <li>In that case, do indeed FIRST reflect on your question, <em>then</em> cast your hexagram; that's personally when I get the most value out of it.</li>
-    </ul>
-    <br>
 
     <h1>The Art of Inquiry: How to Consult the I Ching</h1>
     <p>Welcome to this sacred space of reflection. The I Ching, or Book of Changes, is not a tool for mere fortune-telling or a parlor trick to predict a rigid future. Instead, it acts as a cosmic mirror, reflecting the hidden dynamics, psychological currents, and shifting energies of your present situation.</p>
@@ -207,38 +232,26 @@ if ($hexagram) {
 
     <h3>1. Avoid "Yes" or "No" Questions</h3>
     <p>The Oracle speaks in nuances, cycles, and transformations. Questions like <i>"Should I quit my job?"</i> or <i>"Will I get back with my ex?"</i> force a binary choice onto a universe that operates in fluid waves.</p>
-    <ul>
-      <li><p><b>Instead of:</b> <i>"Will my new business succeed?"</i></p></li>
-      <li><p><b>Try:</b> <i>"What energies or obstacles should I expect if I pursue this new business venture?"</i></p></li>
-    </ul>
+      <p><b>Instead of:</b> <i>"Will my new business succeed?"</i></p>
+      <p><b>Try:</b> <i>"What energies or obstacles should I expect if I pursue this new business venture?"</i></p>
 
     <h3>2. Focus on Your Agency (Own Your Position)</h3>
     <p>You cannot control the actions of others, but you can control your own responses, attitude, and character. Frame your inquiry around your own path of right action.</p>
-    <ul>
-      <li><p><b>Instead of:</b> <i>"Why is my partner being so distant?"</i></p></li>
-      <li><p><b>Try:</b> <i>"How can I best navigate the current distance in my relationship, and what is required of My position right now?"</i></p></li>
-    </ul>
+      <p><b>Instead of:</b> <i>"Why is my partner being so distant?"</i></p>
+      <p><b>Try:</b> <i>"How can I best navigate the current distance in my relationship, and what is required of My position right now?"</i></p>
 
     <h3>3. Seek Insight into the Present</h3>
     <p>The future is not set in stone; it is born from the seeds of the present. Ask for clarity on <i>what is happening right now</i> so you can make the wisest choices moving forward.</p>
-    <ul>
-      <li>
         <p><b>Great starting phrases include:</b></p>
-        <ul>
-          <li><p><i>"What is the true nature of the situation regarding..."</i></p></li>
-          <li><p><i>"What do I need to understand about my current relationship with..."</i></p></li>
-          <li><p><i>"What is the wisest approach to take regarding..."</i></p></li>
-        </ul>
-      </li>
-    </ul>
+          <p><i>"What is the true nature of the situation regarding..."</i></p>
+          <p><i>"What do I need to understand about my current relationship with..."</i></p>
+          <p><i>"What is the wisest approach to take regarding..."</i></p>
 
     <h2>How to Proceed with Your Reading</h2>
-    <ol>
-      <li><p><b>Write It Down:</b> Physically type or write your question out on a piece of paper. The act of writing forces your brain to crystallize your thoughts. If you cannot summarize your inquiry into one or two clear sentences, your mind is still too crowded. Simplify until it is pure.</p></li>
-      <li><p><b>Hold the Intent:</b> As you prepare to cast the hexagram, hold the written question in your mind's eye. Visualize the people, choices, or feelings involved. Let your intent fill the space.</p></li>
-      <li><p><b>Cast the Hexagram:</b> Click the button to generate your lines.</p></li>
-      <li><p><b>Contemplate the Lines:</b> Look at the visual image that appears. Do not rush straight to the text description. Sit with the visual shape of your hexagram for a moment. Let it settle into your intuition.</p></li>
-    </ol>
+      <p><b>Write It Down:</b> Physically type or write your question out on a piece of paper. The act of writing forces your brain to crystallize your thoughts. If you cannot summarize your inquiry into one or two clear sentences, your mind is still too crowded. Simplify until it is pure.</p>
+      <p><b>Hold the Intent:</b> As you prepare to cast the hexagram, hold the written question in your mind's eye. Visualize the people, choices, or feelings involved. Let your intent fill the space.</p>
+      <p><b>Cast the Hexagram:</b> Click the button to generate your lines.</p>
+      <p><b>Contemplate the Lines:</b> Look at the visual image that appears. Do not rush straight to the text description. Sit with the visual shape of your hexagram for a moment. Let it settle into your intuition.</p>
 
     <p>Remember, the I Ching does not strip away your free will; it illuminates it. Use the wisdom generated here to cultivate patience when the oracle advises waiting, and to find courage when it signals that the time has come to cross the great water.</p>
 
