@@ -25,12 +25,18 @@ try {
     die("Database connection failed: " . $e->getMessage());
 }
 
-// 3. SQL Query to Fetch One Random Hexagram
+// 3. Select One Random Hexagram using PHP's Modern PRNG (\Random\Randomizer)
 $hexagram = null;
 $imagePath = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $question !== '') {
+    // Instantiate the modern PHP 8 Randomizer
+    $randomizer = new \Random\Randomizer();
+    
+    // Generate a cryptographically secure random hexagram number (1 - 64)
+    $randomHexNumber = $randomizer->getInt(1, 64);
 
+    // Fetch the specific hexagram record using a prepared statement
     $query = "SELECT
                 hexagram_number,
                 chinese_pinyin,
@@ -38,10 +44,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $question !== '') {
                 core_meaning,
                 description
               FROM iching_hexagrams
-              ORDER BY RAND()
+              WHERE hexagram_number = :hexNum
               LIMIT 1";
 
-    $stmt = $pdo->query($query);
+    $stmt = $pdo->prepare($query);
+    $stmt->execute([':hexNum' => $randomHexNumber]);
     $hexagram = $stmt->fetch();
 }
 
@@ -68,7 +75,7 @@ if ($hexagram) {
     <title>I Ching Consultation in PHP/MySql</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampleuser/water.css@2/out/water.css">
     <link href="https://fonts.googleapis.com/css?family=Times" rel="stylesheet" />
-<style>
+    <style>
         body { 
             font-family: Times, serif; 
             background: #1a1a2e; 
