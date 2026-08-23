@@ -38,14 +38,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $question !== '') {
 
     // Fetch the specific hexagram record using a prepared statement
     $query = "SELECT
-                hexagram_number,
-                chinese_pinyin,
-                english_translation,
-                core_meaning,
-                description
-              FROM iching_hexagrams
-              WHERE hexagram_number = :hexNum
-              LIMIT 1";
+       hexagram_number,
+       chinese_character,
+       chinese_pinyin,
+       english_translation,
+       core_meaning,
+       description
+       FROM iching_hexagrams
+       WHERE hexagram_number = :hexNum
+       LIMIT 1";
 
     $stmt = $pdo->prepare($query);
     $stmt->execute([':hexNum' => $randomHexNumber]);
@@ -70,6 +71,7 @@ if ($hexagram) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>I Ching Consultation in PHP/MySql</title>
@@ -149,6 +151,12 @@ if ($hexagram) {
         a:hover, .card-link:hover {
             color: #ffe699;
         }
+.chinese-char {
+    font-family: 'Noto Serif SC', 'Times New Roman', serif;
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #ffd966;
+}
     </style>
 </head>
 <body>
@@ -204,7 +212,15 @@ if ($hexagram) {
     <?php endif; ?>
 
     <p><b><?php echo htmlspecialchars($hexagram['english_translation']); ?></b></p>
-    <p><b><?php echo htmlspecialchars($hexagram['core_meaning']); ?></b></p>
+    <p><b><?php echo htmlspecialchars($hexagram['description']); ?></b></p>
+<p style="margin: 15px 0 5px 0;">
+        <span class="chinese-char">
+            <?php echo htmlspecialchars($hexagram['chinese_character'] ?? ''); ?>
+        </span>
+    </p>
+    <p style="font-size: 1.3rem; margin-top: 0;">
+        <b>(<?php echo htmlspecialchars($hexagram['chinese_pinyin']); ?>)</b>
+    </p>
 
     <button onclick="window.open('<?php echo htmlspecialchars($wikiUrl); ?>','_blank');">
         Click/tap here to read Full wikipedia Text
@@ -221,6 +237,7 @@ if ($hexagram) {
 
 <p>Created with my limited knowledge of <b><i>mysql</i></b> and PHP, with the help of Google Gemini AI</p>
 <p><a href="/tarot-study-guide" target=_blank>Do a Tarot Card Reading</a></p>
+<p><a href="study_guide.php" target="_blank">View All 64 Hexagrams (I Ching Study Guide)</a></p>
 <p><a href="/" target=_blank>Go To the Main Page of this website</a></p>
 
 
