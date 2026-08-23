@@ -236,8 +236,8 @@ if ($hexagram) {
 <?php endif; ?>
 
 <p>Created with my limited knowledge of <b><i>mysql</i></b> and PHP, with the help of Google Gemini AI</p>
-<p><a href="/tarot-study-guide" target=_blank>Do a Tarot Card Reading</a></p>
 <p><a href="study_guide.php" target="_blank">View All 64 Hexagrams (I Ching Study Guide)</a></p>
+<p><a href="/tarot-study-guide" target=_blank>Do a Tarot Card Reading</a></p>
 <p><a href="/" target=_blank>Go To the Main Page of this website</a></p>
 
 
