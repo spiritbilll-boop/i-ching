@@ -210,6 +210,7 @@ if ($hexagram) {
     <?php else: ?>
         <p><i>[Hexagram Image placeholder: Place hexagram-<?php echo htmlspecialchars($hexNum); ?>.jpg in the images/ directory]</i></p>
     <?php endif; ?>
+<p>Look at the visual image above. Do not rush straight to the text description. Sit with the visual shape of your hexagram for a moment. Let it settle into your intuition.</p>
 
     <p><b><?php echo htmlspecialchars($hexagram['english_translation']); ?></b></p>
     <p><b><?php echo htmlspecialchars($hexagram['description']); ?></b></p>
