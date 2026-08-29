@@ -221,6 +221,9 @@ if ($hexagram) {
     <p style="font-size: 1.3rem; margin-top: 0;">
         <b>(<?php echo htmlspecialchars($hexagram['chinese_pinyin']); ?>)</b>
     </p>
+<button onclick="window.open('hexagram.php?id=<?php echo htmlspecialchars($hexNum); ?>','_blank');">
+        Explore Associated Knowledge & Study Details
+    </button><br><br>
 
     <button onclick="window.open('<?php echo htmlspecialchars($wikiUrl); ?>','_blank');">
         Click/tap here to read Full wikipedia Text
