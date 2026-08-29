@@ -86,7 +86,8 @@ body {
     background: #1d3557;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
-    margin: 30px;
+    margin: 15px;
+    padding: 0;
 }
 h1, h2, h3 { text-align: center; color: #ffd966; }
 .panel {
@@ -94,13 +95,16 @@ h1, h2, h3 { text-align: center; color: #ffd966; }
     color: #222;
     border-radius: 10px;
     padding: 20px;
-    margin: 25px auto;
+    margin: 20px auto;
     max-width: 700px;
+    width: 100%;
+    box-sizing: border-box;
 }
 .card-image {
     display: block;
     margin: auto;
-    max-width: 300px;
+    max-width: 100%;
+    height: auto;
     border-radius: 6px;
 }
 .back-link {
@@ -115,9 +119,10 @@ h1, h2, h3 { text-align: center; color: #ffd966; }
 .nav-card-name {
     display: block;
     margin-top: 6px;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
     color: #1d3557;
+    word-wrap: break-word;
 }
 .chinese-char {
     font-family: 'Noto Serif SC', serif;
@@ -138,9 +143,25 @@ h1, h2, h3 { text-align: center; color: #ffd966; }
 }
 .button:hover { background: #e43f5a; color: white; }
 
+/* Responsive Navigation Layout */
+.nav-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+}
+.nav-flex-item {
+    flex: 1;
+    min-width: 0;
+}
+.nav-flex-item.left { text-align: left; }
+.nav-flex-item.center { text-align: center; }
+.nav-flex-item.right { text-align: right; }
+
 .assoc-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 15px;
     margin-top: 15px;
 }
@@ -173,12 +194,30 @@ h1, h2, h3 { text-align: center; color: #ffd966; }
     color: #555;
     margin-top: 6px;
 }
+
+@media (max-width: 600px) {
+    body {
+        margin: 10px;
+    }
+    .panel {
+        padding: 12px;
+    }
+    .nav-card-name {
+        font-size: 13px;
+    }
+    .back-link {
+        font-size: 14px;
+    }
+    .chinese-char {
+        font-size: 3rem;
+    }
+}
 </style>
 </head>
 <body>
 
 <p style="text-align:center;">
-    <a class="back-link" href="study_guide.php" style="color:#ffd966;">? Back to All Hexagrams</a>
+    <a class="back-link" href="study_guide.php" style="color:#ffd966;">&larr; Back to All Hexagrams</a>
 </p>
 
 <h1>Hexagram <?php echo $hex_id; ?>: <?php echo htmlspecialchars($hexagram['english_translation']); ?></h1>
@@ -188,29 +227,27 @@ h1, h2, h3 { text-align: center; color: #ffd966; }
 <?php endif; ?>
 
 <div class="panel">
-    <table style="width:100%; border-collapse:collapse;">
-        <tr>
-            <td style="text-align:left; vertical-align:top; width:33%;">
-                <?php if ($hex_id > 1): ?>
-                    <a class="back-link" href="hexagram.php?id=<?php echo $hex_id - 1; ?>">
-                        &larr; Previous Hexagram
-                        <span class="nav-card-name"><?php echo htmlspecialchars($previous_name); ?></span>
-                    </a>
-                <?php endif; ?>
-            </td>
-            <td style="text-align:center; vertical-align:top; width:33%;">
-                <a class="back-link" href="study_guide.php">All Hexagrams</a>
-            </td>
-            <td style="text-align:right; vertical-align:top; width:33%;">
-                <?php if ($hex_id < 64): ?>
-                    <a class="back-link" href="hexagram.php?id=<?php echo $hex_id + 1; ?>">
-                        Next Hexagram &rarr;
-                        <span class="nav-card-name"><?php echo htmlspecialchars($next_name); ?></span>
-                    </a>
-                <?php endif; ?>
-            </td>
-        </tr>
-    </table>
+    <div class="nav-flex">
+        <div class="nav-flex-item left">
+            <?php if ($hex_id > 1): ?>
+                <a class="back-link" href="hexagram.php?id=<?php echo $hex_id - 1; ?>">
+                    &larr; Previous
+                    <span class="nav-card-name"><?php echo htmlspecialchars($previous_name); ?></span>
+                </a>
+            <?php endif; ?>
+        </div>
+        <div class="nav-flex-item center">
+            <a class="back-link" href="study_guide.php">All Hexagrams</a>
+        </div>
+        <div class="nav-flex-item right">
+            <?php if ($hex_id < 64): ?>
+                <a class="back-link" href="hexagram.php?id=<?php echo $hex_id + 1; ?>">
+                    Next &rarr;
+                    <span class="nav-card-name"><?php echo htmlspecialchars($next_name); ?></span>
+                </a>
+            <?php endif; ?>
+        </div>
+    </div>
 </div>
 
 <div class="panel" style="text-align:center;">
@@ -269,29 +306,27 @@ h1, h2, h3 { text-align: center; color: #ffd966; }
 </div>
 
 <div class="panel">
-    <table style="width:100%; border-collapse:collapse;">
-        <tr>
-            <td style="text-align:left; vertical-align:top; width:33%;">
-                <?php if ($hex_id > 1): ?>
-                    <a class="back-link" href="hexagram.php?id=<?php echo $hex_id - 1; ?>">
-                        &larr; Previous Hexagram
-                        <span class="nav-card-name"><?php echo htmlspecialchars($previous_name); ?></span>
-                    </a>
-                <?php endif; ?>
-            </td>
-            <td style="text-align:center; vertical-align:top; width:33%;">
-                <a class="back-link" href="index.php">Return to Oracle</a>
-            </td>
-            <td style="text-align:right; vertical-align:top; width:33%;">
-                <?php if ($hex_id < 64): ?>
-                    <a class="back-link" href="hexagram.php?id=<?php echo $hex_id + 1; ?>">
-                        Next Hexagram &rarr;
-                        <span class="nav-card-name"><?php echo htmlspecialchars($next_name); ?></span>
-                    </a>
-                <?php endif; ?>
-            </td>
-        </tr>
-    </table>
+    <div class="nav-flex">
+        <div class="nav-flex-item left">
+            <?php if ($hex_id > 1): ?>
+                <a class="back-link" href="hexagram.php?id=<?php echo $hex_id - 1; ?>">
+                    &larr; Previous
+                    <span class="nav-card-name"><?php echo htmlspecialchars($previous_name); ?></span>
+                </a>
+            <?php endif; ?>
+        </div>
+        <div class="nav-flex-item center">
+            <a class="back-link" href="index.php">Return to Oracle</a>
+        </div>
+        <div class="nav-flex-item right">
+            <?php if ($hex_id < 64): ?>
+                <a class="back-link" href="hexagram.php?id=<?php echo $hex_id + 1; ?>">
+                    Next &rarr;
+                    <span class="nav-card-name"><?php echo htmlspecialchars($next_name); ?></span>
+                </a>
+            <?php endif; ?>
+        </div>
+    </div>
 </div>
 
 <div style="margin-top:40px; text-align:center;">
